@@ -1,6 +1,6 @@
 baseURL = 'https://SokoCat20.github.io/Casualties-Unknown-Recipe-Planner/'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = "C:U Recipe Planner"
 
 disableKinds = ['taxonomy', 'term']
 
