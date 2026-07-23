@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" charset="utf-8">
+  <head><script src="/Casualties-Unknown-Recipe-Planner/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=Casualties-Unknown-Recipe-Planner/livereload" data-no-instant defer></script>
+  </head>
+  <body>
+    
+  <!DOCTYPE html><html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <title>C:U Recipe Planner</title>
+  <script>
+  function selectRecipe() {
+    var recipeName = document.getElementById("recipe").value;
+    var listDiv = document.getElementById("recipeList");
+    var data = [{"craftingQualities":[{"amount":1,"precent":null,"quality":"Foliage"}],"name":"Foliage","recipes":[{"ingrediants":[{"amount":2,"craftingQualities":[],"name":"Fungus Chunk"}],"intelligence":4,"output":1,"unit":"Item"}],"sources":["Breaking Glowplants","Breaking Geotrees"],"usedFor":["Rope","Canvas","Wood Scraps","Firestarter"]},{"craftingQualities":[],"name":"Fungus Chunk","recipes":[],"sources":["Breaking Fungalis Bungalis"],"usedFor":["Foliage"]},{"craftingQualities":[],"name":"Ripped Dressing","recipes":[{"ingrediants":[{"amount":1,"craftingQualities":[{"amount":null,"percent":null,"quality":"Rippable"}],"name":"Any"}],"intelligence":0,"output":1,"unit":"Item"}],"sources":["Medical Crates","Container Crates","Drop Capsules","Life Pod Chests","Traders"],"usedFor":["Dressing"]}];
+    var text = "";
+    var list = [];
+
+    listDiv.innerHTML = '';
+
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].name.includes(recipeName)) {
+        
+        list.push(data[i].name);
+        
+      }
+    }
+
+    for (let i = 0; i < list.length; i++) {
+      
+      
+
+      let itemDiv = document.createElement("div");
+      let listItem = document.createTextNode(list[i]);
+
+      itemDiv.appendChild(listItem);
+      listDiv.appendChild(itemDiv);
+    }
+  }
+  </script>
+  <noscript>Sorry, your browser does not support JavaScript!</noscript>
+</head>
+<body>
+  <label for="reqRecipe">Choose a recipe: </label>
+  <input type="text" id="recipe" size="20" name="reqRecipe" oninput="selectRecipe()">
+  <br>
+  <div id="recipeList">
+
+  </div>
+  <p id="result">hi</p>
+</body>
+</html>
+<p><a href="http://localhost:1313/Casualties-Unknown-Recipe-Planner/">Go to home</a>.</p>
+
+
+  </body>
+</html>
