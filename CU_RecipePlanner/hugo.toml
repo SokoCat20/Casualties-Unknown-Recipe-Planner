@@ -1,9 +1,0 @@
-baseURL = 'https://SokoCat20.github.io/Casualties-Unknown-Recipe-Planner/'
-languageCode = 'en-us'
-title = "C:U Recipe Planner"
-
-disableKinds = ['taxonomy', 'term']
-
-[caches]
-  [caches.images]
-    dir = ':cacheDir/images'
