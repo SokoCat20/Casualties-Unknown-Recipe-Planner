@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Home page on My New Hugo Site</title>
+		<link>http://localhost:1313/Casualties-Unknown-Recipe-Planner/</link>
+		<description>Recent content in Home page on My New Hugo Site</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<atom:link href="http://localhost:1313/Casualties-Unknown-Recipe-Planner/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Planner</title>
+				<link>http://localhost:1313/Casualties-Unknown-Recipe-Planner/planner/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/Casualties-Unknown-Recipe-Planner/planner/</guid>
+				<description>&lt;!DOCTYPE html&gt;&lt;html lang=&#34;en&#34; xmlns=&#34;http://www.w3.org/1999/xhtml&#34;&gt;&#xD;&#xA;&lt;head&gt;&#xD;&#xA;  &lt;meta charset=&#34;utf-8&#34; /&gt;&#xD;&#xA;  &lt;title&gt;C:U Recipe Planner&lt;/title&gt;&#xD;&#xA;  &lt;script&gt;&#xD;&#xA;  function selectRecipe() {&#xD;&#xA;    var recipeName = document.getElementById(&#34;recipe&#34;).value;&#xD;&#xA;    var listDiv = document.getElementById(&#34;recipeList&#34;);&#xD;&#xA;    var data = [{&#34;craftingQualities&#34;:[{&#34;amount&#34;:1,&#34;precent&#34;:null,&#34;quality&#34;:&#34;Foliage&#34;}],&#34;name&#34;:&#34;Foliage&#34;,&#34;recipes&#34;:[{&#34;ingrediants&#34;:[{&#34;amount&#34;:2,&#34;craftingQualities&#34;:[],&#34;name&#34;:&#34;Fungus Chunk&#34;}],&#34;intelligence&#34;:4,&#34;output&#34;:1,&#34;unit&#34;:&#34;Item&#34;}],&#34;sources&#34;:[&#34;Breaking Glowplants&#34;,&#34;Breaking Geotrees&#34;],&#34;usedFor&#34;:[&#34;Rope&#34;,&#34;Canvas&#34;,&#34;Wood Scraps&#34;,&#34;Firestarter&#34;]},{&#34;craftingQualities&#34;:[],&#34;name&#34;:&#34;Fungus Chunk&#34;,&#34;recipes&#34;:[],&#34;sources&#34;:[&#34;Breaking Fungalis Bungalis&#34;],&#34;usedFor&#34;:[&#34;Foliage&#34;]},{&#34;craftingQualities&#34;:[],&#34;name&#34;:&#34;Ripped Dressing&#34;,&#34;recipes&#34;:[{&#34;ingrediants&#34;:[{&#34;amount&#34;:1,&#34;craftingQualities&#34;:[{&#34;amount&#34;:null,&#34;percent&#34;:null,&#34;quality&#34;:&#34;Rippable&#34;}],&#34;name&#34;:&#34;Any&#34;}],&#34;intelligence&#34;:0,&#34;output&#34;:1,&#34;unit&#34;:&#34;Item&#34;}],&#34;sources&#34;:[&#34;Medical Crates&#34;,&#34;Container Crates&#34;,&#34;Drop Capsules&#34;,&#34;Life Pod Chests&#34;,&#34;Traders&#34;],&#34;usedFor&#34;:[&#34;Dressing&#34;]}];&#xD;&#xA;    var text = &#34;&#34;;&#xD;&#xA;    var list = [];&#xD;&#xA;&#xD;&#xA;    listDiv.innerHTML = &#39;&#39;;&#xD;&#xA;&#xD;&#xA;    for (let i = 0; i &lt; data.length; i++) {&#xD;&#xA;      if (data[i].name.includes(recipeName)) {&#xD;&#xA;        &#xD;&#xA;        list.push(data[i].name);&#xD;&#xA;        &#xD;&#xA;      }&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    for (let i = 0; i &lt; list.length; i++) {&#xD;&#xA;      &#xD;&#xA;      &#xD;&#xA;&#xD;&#xA;      let itemDiv = document.createElement(&#34;div&#34;);&#xD;&#xA;      let listItem = document.createTextNode(list[i]);&#xD;&#xA;&#xD;&#xA;      itemDiv.appendChild(listItem);&#xD;&#xA;      listDiv.appendChild(itemDiv);&#xD;&#xA;    }&#xD;&#xA;  }&#xD;&#xA;  &lt;/script&gt;&#xD;&#xA;  &lt;noscript&gt;Sorry, your browser does not support JavaScript!&lt;/noscript&gt;&#xD;&#xA;&lt;/head&gt;&#xD;&#xA;&lt;body&gt;&#xD;&#xA;  &lt;label for=&#34;reqRecipe&#34;&gt;Choose a recipe: &lt;/label&gt;&#xD;&#xA;  &lt;input type=&#34;text&#34; id=&#34;recipe&#34; size=&#34;20&#34; name=&#34;reqRecipe&#34; oninput=&#34;selectRecipe()&#34;&gt;&#xD;&#xA;  &lt;br&gt;&#xD;&#xA;  &lt;div id=&#34;recipeList&#34;&gt;&#xD;&#xA;&#xD;&#xA;  &lt;/div&gt;&#xD;&#xA;  &lt;p id=&#34;result&#34;&gt;hi&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

@@ -1,0 +1,53 @@
+This text file is to store javascript comments since they make Hugo throw a hissy fit.
+
+items.json
+----------
+
+Format:
+
+name                = item/recipe name.
+sources             = array of strings describing where to find this item. See the Tags below for extra info that could be included in the string within parenthesis.
+usedFor             = array of strings storing recipe names that this is an ingrediant of.
+craftingQualities   = An array of strings associated with an item for crafting purposes. Examples include Cutting, Rippable, Antisceptic, etc.
+recipes             = an integer containing output amount, an integer containing required intelligence, and a list of objects containing ingrediants. Wildcard ingrediants that just need a certain crafting quality will be listed with the name "Any" to represent that they could be any ingrediant.
+
+
+Tags:
+
+These are included in parenthesis within the strings for certain sources. # represents any real number. Each tag is separated by a comma. They are listed in the order below.
+
+# %             = Chance of obtaining item
+Possible Damage = Indicates a chance to receive the item in a damaged state
+
+Template:
+
+"name": null,                     // string
+"sources": [],                    // string
+"usedFor": [],                    // string
+"craftingQualities": [
+  {
+    "quality": null,              // string
+    "amount": null,               // integer
+    "percent": null               // integer
+  }
+],
+"recipes": [
+  {
+    "output": null,               // integer
+    "unit": null,                 // string
+    "intelligence": null,         // integer
+    "ingrediants": [
+      {
+        "name": null,             // string
+        "amount": null,           // integer
+        "craftingQualities": []
+      }
+    ]
+  }
+]                                 // template end
+
+List of Units (strings):
+  Item
+
+List of Crafting Qualities (strings):
+  Foliage
