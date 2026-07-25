@@ -1,5 +1,8 @@
-var itemNode;
+class ItemNode {
 
-function GenerateNode(let itemData) {
-    
+    function GenerateNode(let itemData) {
+
+    }
 }
+
+
