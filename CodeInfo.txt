@@ -1,4 +1,4 @@
-This text file is to store javascript comments since they make Hugo throw a hissy fit.
+Comments for JSON files.
 
 items.json
 ----------
