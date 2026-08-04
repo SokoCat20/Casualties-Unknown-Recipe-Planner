@@ -8,11 +8,7 @@ class ItemNode {
 
     GenerateNode() {
         this.node = document.createElement("div");  // This div will hold the entire node
-        this.node.setAttribute("style", `height: ${this.height}; width: ${this.width}; border-color: red;`)
-        this.node.appendChild(document.createTextNode("this is a node"))
+        this.node.setAttribute("style", `height: ${this.height}; width: ${this.width}; border-color: red;`);
+        this.node.appendChild(document.createTextNode("this is a node"));
     }
 }
-
-var node = new ItemNode(100, 100);
-node.GenerateNode();
-document.body.appendChild(node.node);

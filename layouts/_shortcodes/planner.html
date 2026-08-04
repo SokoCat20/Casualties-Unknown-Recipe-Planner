@@ -2,6 +2,7 @@
 
 {{- $data := hugo.Data.items -}}
 {{- $itemNode := resources.Get "itemNode.js" -}}
+{{- $nodeStyle := resources.Get "nodeStyle.css" -}}
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -9,30 +10,35 @@
   <title>C:U Recipe Planner</title>
   <script src="{{ $itemNode.RelPermalink }}"></script>
   <script>
-  function selectRecipe() {
-    var recipeName = document.getElementById("recipe").value;
-    var listDiv = document.getElementById("recipeList");
-    var data = {{ $data }};
-    var text = "";
-    var list = [];
+    function selectRecipe() {
+      var recipeName = document.getElementById("recipe").value;
+      var listDiv = document.getElementById("recipeList");
+      var data = {{ $data }};
+      var text = "";
+      var list = [];
 
-    listDiv.innerHTML = '';
+      listDiv.innerHTML = '';
 
-    for (let i = 0; i < data.length; i++) {
-      if (data[i].name.includes(recipeName)) {
-        list.push(data[i].name);
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].name.includes(recipeName)) {
+          list.push(data[i].name);
+        }
+      }
+
+      for (let i = 0; i < list.length; i++) {
+        let itemDiv = document.createElement("div");
+        let listItem = document.createTextNode(list[i]);
+
+        itemDiv.appendChild(listItem);
+        listDiv.appendChild(itemDiv);
       }
     }
+    function createNode() {
+      var node = new ItemNode(100, 100);
 
-    for (let i = 0; i < list.length; i++) {
-      let itemDiv = document.createElement("div");
-      let listItem = document.createTextNode(list[i]);
-
-      itemDiv.appendChild(listItem);
-      listDiv.appendChild(itemDiv);
+      node.GenerateNode();
+      document.getElementById("new-nodes").appendChild(node.node);
     }
-
-  }
   </script>
   <noscript>Sorry, your browser does not support JavaScript!</noscript>
 </head>
@@ -43,5 +49,13 @@
   <div id="recipeList">
 
   </div>
+  <div id="new-nodes">
+    <br />
+    <button id="generate-node" type="button" onclick="createNode()"> New Node </button>
+    <br />
+    <br />
+  </div>
+  <br />
+  <a href="{{ .Site.BaseURL | relLangURL }}">home</a>
 </body>
 </html>
