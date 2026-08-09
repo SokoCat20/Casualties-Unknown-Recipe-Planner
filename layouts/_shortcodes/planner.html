@@ -8,6 +8,7 @@
 <head>
   <meta charset="utf-8" />
   <title>C:U Recipe Planner</title>
+  <link rel="stylesheet" href="{{ $nodeStyle.RelPermalink }}">
   <script src="{{ $itemNode.RelPermalink }}"></script>
   <script>
     function selectRecipe() {
@@ -34,7 +35,7 @@
       }
     }
     function createNode() {
-      var node = new ItemNode(100, 100);
+      var node = new ItemNode(50, 50);
 
       node.GenerateNode();
       document.getElementById("new-nodes").appendChild(node.node);
