@@ -1,4 +1,8 @@
-﻿#recipeNode {
+﻿#new-nodes {
+    height: 90vh;
+}
+
+#recipe-node {
     border-style: solid;
     border-color: red;
 }

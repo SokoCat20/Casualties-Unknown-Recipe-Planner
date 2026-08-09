@@ -10,10 +10,11 @@
   <title>C:U Recipe Planner</title>
   <link rel="stylesheet" href="{{ $nodeStyle.RelPermalink }}">
   <script src="{{ $itemNode.RelPermalink }}"></script>
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
   <script>
     function selectRecipe() {
       var recipeName = document.getElementById("recipe").value;
-      var listDiv = document.getElementById("recipeList");
+      var listDiv = document.getElementById("recipe-list");
       var data = {{ $data }};
       var text = "";
       var list = [];
@@ -44,10 +45,13 @@
   <noscript>Sorry, your browser does not support JavaScript!</noscript>
 </head>
 <body>
+  <a href="{{ .Site.BaseURL | relLangURL }}">home</a>
+  <br />
+  <br />
   <label for="reqRecipe">Choose a recipe: </label>
   <input type="text" id="recipe" size="20" name="reqRecipe" oninput="selectRecipe()">
   <br>
-  <div id="recipeList">
+  <div id="recipe-list">
 
   </div>
   <div id="new-nodes">
@@ -56,7 +60,5 @@
     <br />
     <br />
   </div>
-  <br />
-  <a href="{{ .Site.BaseURL | relLangURL }}">home</a>
 </body>
 </html>
