@@ -15,7 +15,7 @@
         "output": 1,
         "unit": "Item",
         "intelligence": 4,
-        "ingrediants": [
+        "ingredients": [
           {
             "name": "Fungus Chunk",
             "amount": 2,
@@ -42,7 +42,7 @@
         "output": 1,
         "unit": "Item",
         "intelligence": 0,
-        "ingrediants": [
+        "ingredients": [
           {
             "name": "Any",
             "amount": 1,

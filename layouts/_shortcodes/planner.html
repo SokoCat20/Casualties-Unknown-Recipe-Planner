@@ -12,32 +12,47 @@
   <script src="{{ $itemNode.RelPermalink }}"></script>
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
   <script>
-    function selectRecipe() {
-      var recipeName = document.getElementById("recipe").value;
-      var listDiv = document.getElementById("recipe-list");
-      var data = {{ $data }};
-      var text = "";
-      var list = [];
-
-      listDiv.innerHTML = '';
+    function SearchData(itemName) {   // Returns an array of JSON objects with names containing the given string
+      let data = {{ $data }};
+      let dataList = [];
 
       for (let i = 0; i < data.length; i++) {
-        if (data[i].name.includes(recipeName)) {
-          list.push(data[i].name);
+        if (data[i].name.includes(itemName)) {
+          dataList.push(data[i]);
         }
       }
 
+      return dataList;
+    }
+    function DisplayRecipes() {       // Retrieve and display all recipes containing the given string in their name
+      var recipeName = document.getElementById("recipe").value;
+      var listDiv = document.getElementById("recipe-list");
+      var text = "";
+      var list = [];  // List of JSON objects with names containing the input recipeName string
+
+      listDiv.innerHTML = '';
+
+      list = SearchData(recipeName);
+
       for (let i = 0; i < list.length; i++) {
         let itemDiv = document.createElement("div");
-        let listItem = document.createTextNode(list[i]);
+        let listItem = document.createTextNode(list[i].name);
+
+        itemDiv.setAttribute("onclick", "SelectItem(this)");
 
         itemDiv.appendChild(listItem);
         listDiv.appendChild(itemDiv);
       }
     }
-    function createNode() {
-      var node = new ItemNode(50, 50);
+    function SelectItem(element) {    // Get the relevant data for a given item and generate a new node for it. If the item name applies to multiple items, uses the first item.
+      let itemName = element.textContent;
+      let itemList = SearchData(itemName);
 
+      CreateNode(itemList[0]);
+    }
+    function CreateNode(item) {       // Generate a new node for a given item
+      var node = new ItemNode(item, 100, 150);
+       
       node.GenerateNode();
       document.getElementById("new-nodes").appendChild(node.node);
     }
@@ -49,16 +64,16 @@
   <br />
   <br />
   <label for="reqRecipe">Choose a recipe: </label>
-  <input type="text" id="recipe" size="20" name="reqRecipe" oninput="selectRecipe()">
+  <input type="text" id="recipe" size="20" name="reqRecipe" oninput="DisplayRecipes()">
   <br>
   <div id="recipe-list">
 
   </div>
   <div id="new-nodes">
     <br />
-    <button id="generate-node" type="button" onclick="createNode()"> New Node </button>
+    <button id="generate-node" type="button" onclick="CreateNode()"> New Node </button>
     <br />
     <br />
-  </div>
+  </div>  
 </body>
 </html>

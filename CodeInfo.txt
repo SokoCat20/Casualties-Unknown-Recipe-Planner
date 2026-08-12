@@ -36,7 +36,7 @@ Template:
     "output": null,               // integer
     "unit": null,                 // string
     "intelligence": null,         // integer
-    "ingrediants": [
+    "ingredients": [
       {
         "name": null,             // string
         "amount": null,           // integer
