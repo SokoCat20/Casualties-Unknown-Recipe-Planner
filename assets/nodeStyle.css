@@ -1,10 +1,37 @@
 ﻿#new-nodes {
     height: 90vh;
+    border-style: solid;
+    border-color: black;
 }
 
 #recipe-node {
     border-style: solid;
     border-color: red;
+}
+
+#node-title {
+    text-align: center;
+    border-style: solid;
+    border-color: red;
+    margin-top: 0px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+#ingrediant-pins {
+    
+}
+
+#recipe-pin {
+
+}
+
+#pin-image {
+
+}
+
+#pin-text {
+
 }
 
 ul {

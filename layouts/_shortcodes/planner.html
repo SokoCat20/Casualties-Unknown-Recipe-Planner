@@ -15,7 +15,7 @@
     function SearchData(itemName) {   // Returns an array of JSON objects with names containing the given string
       let data = {{ $data }};
       let dataList = [];
-
+     
       for (let i = 0; i < data.length; i++) {
         if (data[i].name.includes(itemName)) {
           dataList.push(data[i]);
@@ -33,7 +33,7 @@
       listDiv.innerHTML = '';
 
       list = SearchData(recipeName);
-
+       
       for (let i = 0; i < list.length; i++) {
         let itemDiv = document.createElement("div");
         let listItem = document.createTextNode(list[i].name);
@@ -51,8 +51,8 @@
       CreateNode(itemList[0]);
     }
     function CreateNode(item) {       // Generate a new node for a given item
-      var node = new ItemNode(item, 100, 150);
-       
+      var node = new ItemNode(item, 100, 200);
+
       node.GenerateNode();
       document.getElementById("new-nodes").appendChild(node.node);
     }
@@ -69,11 +69,9 @@
   <div id="recipe-list">
 
   </div>
+  <br />
   <div id="new-nodes">
-    <br />
-    <button id="generate-node" type="button" onclick="CreateNode()"> New Node </button>
-    <br />
-    <br />
-  </div>  
+
+  </div>
 </body>
 </html>

@@ -5,6 +5,7 @@ class ItemNode {
         this.height = height;
         this.width = width;
 
+        // Elements
         this.node = null;
     }
 
@@ -13,7 +14,13 @@ class ItemNode {
         this.node.setAttribute("style", `height: ${this.height}px; width: ${this.width}px;`);
         this.node.id = "recipe-node";
         this.node.classList.add("divdrag");
-        this.node.appendChild(document.createTextNode(this.data.name));
+
+        // Create title
+
+        let title = document.createElement("p");
+        title.id = "node-title";
+        title.textContent = this.data.name;
+        this.node.appendChild(title);
 
         // Create pins
         // TO DO: Implement functionality for multiple recipes by making buttons to cycle through
@@ -24,13 +31,27 @@ class ItemNode {
 
         let currRecipe = this.data.recipes[0];
         let pinCount = currRecipe.ingredients.length;
+        let list = document.createElement("div");
 
-        let list = document.createElement("ul");
+        list.id = "ingrediant-pins";
+
         for (let i = 0; i < pinCount; i++) {
-            let listItem = document.createElement("li");
-            listItem.textContent = `${currRecipe.ingredients[i].name} (${currRecipe.ingredients[i].amount})`;
+            // Item div
+            let listItem = document.createElement("div");
+
+            // Image
+            let listItemImage = document.createElement("img");
+            listItemImage.src = "images/RecipePin.png";
+            listItem.appendChild(listItemImage);
+
+            // Text
+            let itemText = document.createElement("p");
+            itemText.textContent = `${currRecipe.ingredients[i].name} (${currRecipe.ingredients[i].amount})`;
+            listItem.appendChild(itemText);
+
             list.appendChild(listItem);
         }
+
         this.node.appendChild(list);
     }
 }
