@@ -7,6 +7,9 @@
 #recipe-node {
     border-style: solid;
     border-color: red;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
 }
 
 #node-title {
@@ -14,20 +17,66 @@
     border-style: solid;
     border-color: red;
     margin-top: 0px;
+    margin-bottom: 0px;
     padding-top: 2px;
     padding-bottom: 2px;
+    display: flex;
+    flex-direction: column;
+    flex: 0;
+}
+
+#all-pins {
+    border-style: solid;
+    border-color: red;
+    overflow: visible;
+    width: stretch;
+    display: flex;
+    flex-direction: row;
+    flex: 1 0;
 }
 
 #ingrediant-pins {
-    
+    float: left;
+    overflow: visible;
+    width: stretch;
+    transform: translateY(12.5%);
+    flex: 1 0;
 }
 
 #recipe-pin {
-
+    margin-left: auto;
+    margin-right: 0;
+    float: right;
+    overflow: visible;
+    width: stretch;
+    transform: translateY(15%);
+    flex: 0 1;
 }
 
-#pin-image {
+#ing-pin-image {
+    height: 10px; 
+    width: 10px;
+    float: left;
+    transform: translateY(4.5px);
+    margin-left: 10px;
+    margin-right: 10px;
+}
 
+#qua-pin-image {
+    height: 12px;
+    width: 12px;
+    float: left;
+    transform: translateY(3.5px);
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#rec-pin-image {
+    height: 12px;
+    width: 12px;
+    transform: translateY(15.5px);
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 #pin-text {

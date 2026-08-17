@@ -1,57 +1,106 @@
 class ItemNode {
 
-    constructor(data, height, width) {
-        this.data = data;       // item JSON data from items.json
+    constructor(data, height, width, ingrediantPinImage, recipePinImage, qualityPinImage) {
+        this.data = data;                               // item JSON data from items.json
         this.height = height;
-        this.width = width;
+        this.width = width; 
+
+        // Decorative
+        this.ingrediantPinImage = ingrediantPinImage;   // Link to the image for ingrediant pins
+        this.recipePinImage = recipePinImage;           // Link to the image for recipe pins
+        this.qualityPinImage = qualityPinImage;         // Link to the image for quality-type ingrediant pins
 
         // Elements
         this.node = null;
     }
 
     GenerateNode() {
+
+        /***** Create node *****/
+
         this.node = document.createElement("div");  // This div will hold the entire node
         this.node.setAttribute("style", `height: ${this.height}px; width: ${this.width}px;`);
         this.node.id = "recipe-node";
         this.node.classList.add("divdrag");
 
-        // Create title
+        /***** Create title *****/
 
         let title = document.createElement("p");
+        this.node.appendChild(title);
         title.id = "node-title";
         title.textContent = this.data.name;
-        this.node.appendChild(title);
 
-        // Create pins
+        /***** Create pins *****/
         // TO DO: Implement functionality for multiple recipes by making buttons to cycle through
         //        recipes and an input to get a specific one in the list by number.  Input should
         //        update when cycling to show the current recipe number. There should be a "gen chart"
         //        button. "gen chart" generates a flowchart for the recipe. For now it just uses the
         //        first recipe.
 
-        let currRecipe = this.data.recipes[0];
-        let pinCount = currRecipe.ingredients.length;
-        let list = document.createElement("div");
+        let pinsDiv = document.createElement("div");
+        this.node.appendChild(pinsDiv);
+        pinsDiv.id = "all-pins";
 
-        list.id = "ingrediant-pins";
+        // Ingrediant pins
 
-        for (let i = 0; i < pinCount; i++) {
-            // Item div
-            let listItem = document.createElement("div");
+        if (this.data.recipes.length > 0) { 
 
-            // Image
-            let listItemImage = document.createElement("img");
-            listItemImage.src = "images/RecipePin.png";
-            listItem.appendChild(listItemImage);
+            let currRecipe = this.data.recipes[0];
+            let pinCount = currRecipe.ingredients.length;
+            let list = document.createElement("div");
+            pinsDiv.appendChild(list);
 
-            // Text
-            let itemText = document.createElement("p");
-            itemText.textContent = `${currRecipe.ingredients[i].name} (${currRecipe.ingredients[i].amount})`;
-            listItem.appendChild(itemText);
+            list.id = "ingrediant-pins";
 
-            list.appendChild(listItem);
+            for (let i = 0; i < pinCount; i++) {
+                let currIng = currRecipe.ingredients[i];
+
+                // Item div
+                let listItem = document.createElement("div");
+                list.appendChild(listItem);
+
+                // Image
+                let listItemImage = document.createElement("img");
+                listItem.appendChild(listItemImage);
+
+                if (currIng.craftingQualities.length == 0) {
+                    listItemImage.src = this.ingrediantPinImage;
+                    listItemImage.id = "ing-pin-image";
+                }
+                else {
+                    listItemImage.src = this.qualityPinImage;
+                    listItemImage.id = "qua-pin-image";
+                }
+
+                // Text
+                let itemText = document.createElement("p");
+                listItem.appendChild(itemText);
+                itemText.id = "pin-text";
+
+                if (currIng.craftingQualities.length == 0) {
+                    itemText.textContent = `${currIng.name} (${currIng.amount})`;
+                }
+                else {
+                    let currQuality = currIng.craftingQualities[0]; 
+                    let unit = ``;
+
+                    if (currQuality.amount != null) unit = `${currQuality.amount}`;
+                    else unit = `${currQuality.percent}%`
+
+                    itemText.textContent = `${currQuality.quality} (${unit})`;
+                }
+            }
         }
 
-        this.node.appendChild(list);
+        // Recipe pin (acts as an "output")
+
+        let recPin = document.createElement("div");
+        pinsDiv.appendChild(recPin);
+        recPin.id = "recipe-pin";
+
+        let recPinImage = document.createElement("img");
+        recPin.appendChild(recPinImage);
+        recPinImage.src = this.recipePinImage;
+        recPinImage.id = "rec-pin-image";
     }
 }

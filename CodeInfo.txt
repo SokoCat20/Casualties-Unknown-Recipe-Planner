@@ -57,3 +57,4 @@ ItemNode.js
 
 - var itemNode contains the div for the item node.
 - The function parameter itemData contains the json object that describes the item. Refer to items.json.
+- if an item requires a crafting quality as an ingrediant, the name of the ingrediant should be "Any" and the amount should be 0. 

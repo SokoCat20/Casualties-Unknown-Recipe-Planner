@@ -45,11 +45,11 @@
         "ingredients": [
           {
             "name": "Any",
-            "amount": 1,
+            "amount": 0,
             "craftingQualities": [
               {
                 "quality": "Rippable",
-                "amount": null,
+                "amount": 1,
                 "percent": null
               }
             ]
