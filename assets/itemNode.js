@@ -25,10 +25,20 @@ class ItemNode {
 
         /***** Create title *****/
 
+        let titleDiv = document.createElement("div");
+        this.node.appendChild(titleDiv);
+        titleDiv.id = "title-div";
+
         let title = document.createElement("p");
-        this.node.appendChild(title);
+        titleDiv.appendChild(title);
         title.id = "node-title";
         title.textContent = this.data.name;
+
+        let dragButton = document.createElement("button");
+        titleDiv.appendChild(dragButton);
+        dragButton.id = "drag-button";
+        dragButton.textContent = "drag";
+        dragButton.setAttribute("onclick", "mouseData.DragNode(this)");
 
         /***** Create pins *****/
         // TO DO: Implement functionality for multiple recipes by making buttons to cycle through

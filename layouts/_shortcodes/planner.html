@@ -2,6 +2,7 @@
 
 {{- $data := hugo.Data.items -}}
 {{- $itemNode := resources.Get "itemNode.js" -}}
+{{- $mouseHandler := resources.Get "MouseHandler.js" -}}
 {{- $nodeStyle := resources.Get "nodeStyle.css" -}}
 {{- $IngPinAsset := resources.Get "images/IngrediantPin.png" -}}
 {{- $RecPinAsset := resources.Get "images/RecipePin.png" -}}
@@ -13,8 +14,12 @@
   <title>C:U Recipe Planner</title>
   <link rel="stylesheet" href="{{ $nodeStyle.RelPermalink }}">
   <script src="{{ $itemNode.RelPermalink }}"></script>
+  <script src="{{ $mouseHandler.RelPermalink }}"></script>
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
   <script>
+    var mouseData = new MouseData();
+    document.onmousemove = mouseData.CalcMousePos;
+
     function SearchData(itemName) {   // Returns an array of JSON objects with names containing the given string
       let data = {{ $data }};
       let dataList = [];
