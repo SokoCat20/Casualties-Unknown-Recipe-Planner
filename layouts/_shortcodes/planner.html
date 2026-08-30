@@ -17,8 +17,11 @@
   <script src="{{ $mouseHandler.RelPermalink }}"></script>
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
   <script>
-    var mouseData = new MouseData();
-    document.onmousemove = mouseData.CalcMousePos;
+    //var mouseData = new MouseData();
+    //document.onmousemove = mouseData.CalcMousePos;
+    //document.onmousemove = function (e) { console.log("mouse location:", e.clientX, e.clientY) };
+
+    var nodeList = [];
 
     function SearchData(itemName) {   // Returns an array of JSON objects with names containing the given string
       let data = {{ $data }};
@@ -56,7 +59,7 @@
     }
     function SelectItem(element) {    // Get the relevant data for a given item and generate a new node for it. If the item name applies to multiple items, uses the first item.
       let itemName = element.textContent;
-      let itemList = SearchData(itemName);
+      let itemList = SearchData(itemName); 
 
       CreateNode(itemList[0]);
     }
@@ -64,8 +67,9 @@
       let ingPinAsset = {{ $IngPinAsset.RelPermalink }};
       let recPinAsset = {{ $RecPinAsset.RelPermalink }};
       let quaPinAsset = {{ $QuaPinAsset.RelPermalink }};
-      var node = new ItemNode(item, 100, 200, ingPinAsset, recPinAsset, quaPinAsset);
+      let node = new ItemNode(item, 100, 200, ingPinAsset, recPinAsset, quaPinAsset, nodeList.length); 
 
+      nodeList.push(node);
       node.GenerateNode();
       document.getElementById("new-nodes").appendChild(node.node);
     }

@@ -1,17 +1,34 @@
 class ItemNode {
 
-    constructor(data, height, width, ingrediantPinImage, recipePinImage, qualityPinImage) {
+    data = null;                // item JSON data from items.json
+    height = null;
+    width = null; 
+    nodeID = null;              // The location of this node in the nodeList array
+
+    // Decorative
+    ingrediantPinImage = null;  // Link to the image for ingrediant pins
+    recipePinImage = null;      // Link to the image for recipe pins
+    qualityPinImage = null;     // Link to the image for quality-type ingrediant pins
+
+    // Elements
+    node;
+
+    // Other
+    mousePos = [0, 0];
+    offset = [0, 0];
+    mouseDown = false;
+    mouseStartPos = [0, 0];
+
+    constructor(data, height, width, ingrediantPinImage, recipePinImage, qualityPinImage, nodeID) {
         this.data = data;                               // item JSON data from items.json
         this.height = height;
         this.width = width; 
+        this.nodeID = nodeID;
 
         // Decorative
         this.ingrediantPinImage = ingrediantPinImage;   // Link to the image for ingrediant pins
         this.recipePinImage = recipePinImage;           // Link to the image for recipe pins
         this.qualityPinImage = qualityPinImage;         // Link to the image for quality-type ingrediant pins
-
-        // Elements
-        this.node = null;
     }
 
     GenerateNode() {
@@ -24,7 +41,7 @@ class ItemNode {
         this.node.classList.add("divdrag");
 
         /***** Create title *****/
-
+         
         let titleDiv = document.createElement("div");
         this.node.appendChild(titleDiv);
         titleDiv.id = "title-div";
@@ -34,11 +51,59 @@ class ItemNode {
         title.id = "node-title";
         title.textContent = this.data.name;
 
-        let dragButton = document.createElement("button");
+        /*let dragButton = document.createElement("button");
         titleDiv.appendChild(dragButton);
         dragButton.id = "drag-button";
-        dragButton.textContent = "drag";
-        dragButton.setAttribute("onclick", "mouseData.DragNode(this)");
+        dragButton.textContent = "drag";*/
+
+        // Add ability to drag with mouse
+
+        // from https://jsfiddle.net/f5EMT/1/
+
+        /*this.node.titleDiv.addEventListener("mousedown", function (e) {
+            this.mouseDown = true;
+            //this.offset = [this.node.left - e.clientX, this.node.style.top - e.clientY];
+            this.offset = [e.clientX, e.clientY];
+        }, true);
+
+        this.node.addEventListener("mouseup", function () {
+            this.mouseDown = false;
+        }, true);
+
+        this.node.addEventListener("mousemove", function (e) {
+            e.preventDefault();
+
+            if (this.mouseDown) {
+                this.mousePos = [e.clientX, e.clientY];
+                this.node.style.left = (this.mousePosition[0] + this.offset[0]) + 'px';
+                this.node.style.top = (this.mousePosition[1] + this.offset[1]) + 'px';
+            }
+        }, true);*/
+
+        // attempt to combine https://jsfiddle.net/f5EMT/1/ and https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_draggable
+
+        /*titleDiv.addEventListener("mousedown", function (e) {
+            e.preventDefault();
+            this.mouseDown = true;
+            //this.offset = [this.node.left - e.clientX, this.node.style.top - e.clientY];
+            this.mouseStartPos = [e.clientX, e.clientY];
+        }, true);
+
+        titleDiv.addEventListener("mouseup", function () {
+            this.mouseDown = false;
+        }, true);
+
+        titleDiv.addEventListener("mousemove", function (e) {
+            e.preventDefault();
+
+            if (this.mouseDown) {
+                this.mousePos = [this.mouseStartPos[0] - e.clientX, this.mouseStartPos[1] - e.clientY];
+                this.mouseStartPos = [e.clientX, e.clientY];
+
+                this.node.setAttribute("style", `left: ${(this.node.offsetLeft - this.mouseStartPos[0])} + 'px'`)
+                this.node.setAttribute("style", `top: ${(this.node.offsetTop - this.mouseStartPos[1])} + 'px'`)
+            }
+        }, true);*/
 
         /***** Create pins *****/
         // TO DO: Implement functionality for multiple recipes by making buttons to cycle through
@@ -113,4 +178,36 @@ class ItemNode {
         recPinImage.src = this.recipePinImage;
         recPinImage.id = "rec-pin-image";
     }
+
+    // from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_draggable
+
+    /*DragMouseDown(e) {
+        e.preventDefault();
+
+        // Get mouse position at startup
+        this.mouseStartPos = [e.clientX, e.clientY];
+
+        document.onmouseup = StopDragging;
+
+        // Call function whenever cursor moves
+        document.onmousemove = NodeDrag;
+    }
+
+    NodeDrag(e) {
+        e.preventDefault();
+
+        // calculate new cursor position
+        this.mousePos = [this.mouseStartPos[0] - e.clientX, this.mouseStartPos[1] - e.clientY];
+        this.mouseStartPos = [e.clientX, e.clientY];
+
+        // set the node's new position
+        this.node.style.left = (this.node.offsetLeft - this.mousePos[0]) + "px";
+        this.node.style.top = (this.node.offsetTop - this.mousePos[1]) + "px";
+    }
+
+    StopDragging() {
+        // stop moving when mouse button is released:
+        document.onmouseup = null;
+        document.onmousemove = null;
+    }*/
 }
