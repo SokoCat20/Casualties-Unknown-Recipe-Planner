@@ -3,7 +3,7 @@ class ItemNode {
     data = null;                // item JSON data from items.json
     height = null;
     width = null; 
-    nodeID = null;              // The location of this node in the nodeList array
+    nodeID = null;              // The location of this node in the nodeList array. Also stored as the last character in the ID of this node's first element.
 
     // Decorative
     ingrediantPinImage = null;  // Link to the image for ingrediant pins
@@ -37,14 +37,16 @@ class ItemNode {
 
         this.node = document.createElement("div");  // This div will hold the entire node
         this.node.setAttribute("style", `height: ${this.height}px; width: ${this.width}px;`);
-        this.node.id = "recipe-node";
-        this.node.classList.add("divdrag");
+        this.node.class = "recipe-node";
+        this.node.id = `recipe-node-${this.nodeID}`;
+        //this.node.classList.add("divdrag");
 
         /***** Create title *****/
          
         let titleDiv = document.createElement("div");
         this.node.appendChild(titleDiv);
         titleDiv.id = "title-div";
+        titleDiv.onmousedown = DragMouseDown;
 
         let title = document.createElement("p");
         titleDiv.appendChild(title);
@@ -181,33 +183,37 @@ class ItemNode {
 
     // from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_draggable
 
-    /*DragMouseDown(e) {
+    DragMouseDown(e) {
         e.preventDefault();
 
-        // Get mouse position at startup
-        this.mouseStartPos = [e.clientX, e.clientY];
+        let nodeObj = getNode(this.id);
 
-        document.onmouseup = StopDragging;
+        // Get mouse position at startup
+        nodeObj.mouseStartPos = [e.clientX, e.clientY];
+
+        document.onmouseup = nodeObj.StopDragging;
 
         // Call function whenever cursor moves
-        document.onmousemove = NodeDrag;
+        document.onmousemove = nodeObj.NodeDrag;
     }
 
     NodeDrag(e) {
         e.preventDefault();
 
+        let nodeObj = getNode(this.id);
+
         // calculate new cursor position
-        this.mousePos = [this.mouseStartPos[0] - e.clientX, this.mouseStartPos[1] - e.clientY];
-        this.mouseStartPos = [e.clientX, e.clientY];
+        nodeObj.mousePos = [nodeObj.mouseStartPos[0] - e.clientX, nodeObj.mouseStartPos[1] - e.clientY];
+        nodeObj.mouseStartPos = [e.clientX, e.clientY];
 
         // set the node's new position
-        this.node.style.left = (this.node.offsetLeft - this.mousePos[0]) + "px";
-        this.node.style.top = (this.node.offsetTop - this.mousePos[1]) + "px";
+        nodeObj.node.style.left = (nodeObj.node.offsetLeft - nodeObj.mousePos[0]) + "px";
+        nodeObj.node.style.top = (nodeObj.node.offsetTop - nodeObj.mousePos[1]) + "px";
     }
 
     StopDragging() {
         // stop moving when mouse button is released:
         document.onmouseup = null;
         document.onmousemove = null;
-    }*/
+    }
 }

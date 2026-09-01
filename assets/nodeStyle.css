@@ -4,7 +4,7 @@
     border-color: black;
 }
 
-#recipe-node {
+.recipe-node {
     border-style: solid;
     border-color: red;
     overflow: visible;
@@ -83,8 +83,4 @@
 
 #pin-text {
 
-}
-
-ul {
-    padding-left: 25px;
 }

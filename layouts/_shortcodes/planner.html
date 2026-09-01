@@ -21,7 +21,7 @@
     //document.onmousemove = mouseData.CalcMousePos;
     //document.onmousemove = function (e) { console.log("mouse location:", e.clientX, e.clientY) };
 
-    var nodeList = [];
+    var nodeObjList = [];
 
     function SearchData(itemName) {   // Returns an array of JSON objects with names containing the given string
       let data = {{ $data }};
@@ -67,11 +67,16 @@
       let ingPinAsset = {{ $IngPinAsset.RelPermalink }};
       let recPinAsset = {{ $RecPinAsset.RelPermalink }};
       let quaPinAsset = {{ $QuaPinAsset.RelPermalink }};
-      let node = new ItemNode(item, 100, 200, ingPinAsset, recPinAsset, quaPinAsset, nodeList.length); 
+      let node = new ItemNode(item, 100, 200, ingPinAsset, recPinAsset, quaPinAsset, nodeObjList.length); 
 
-      nodeList.push(node);
+      nodeObjList.push(node);
       node.GenerateNode();
       document.getElementById("new-nodes").appendChild(node.node);
+    }
+    function getNode(idString) {
+      if (idString == null) idString = "";
+      let id = idString.charAt(idString.length - 1); 
+      return nodeObjList[id];
     }
   </script>
   <noscript>Sorry, your browser does not support JavaScript!</noscript>
