@@ -23,6 +23,8 @@
 
     var nodeObjList = [];
 
+    /***** Data *****/
+
     function SearchData(itemName) {   // Returns an array of JSON objects with names containing the given string
       let data = {{ $data }};
       let dataList = [];
@@ -35,6 +37,9 @@
 
       return dataList;
     }
+
+    /***** Item Selection *****/
+
     function DisplayRecipes() {       // Retrieve and display all recipes containing the given string in their name
       var recipeName = document.getElementById("recipe").value;
       var listDiv = document.getElementById("recipe-list");
@@ -57,26 +62,68 @@
         listDiv.appendChild(itemDiv);
       }
     }
+
     function SelectItem(element) {    // Get the relevant data for a given item and generate a new node for it. If the item name applies to multiple items, uses the first item.
       let itemName = element.textContent;
       let itemList = SearchData(itemName); 
 
       CreateNode(itemList[0]);
     }
+
+    /***** Node Manipulation *****/
+
     function CreateNode(item) {       // Generate a new node for a given item
       let ingPinAsset = {{ $IngPinAsset.RelPermalink }};
       let recPinAsset = {{ $RecPinAsset.RelPermalink }};
       let quaPinAsset = {{ $QuaPinAsset.RelPermalink }};
       let node = new ItemNode(item, 100, 200, ingPinAsset, recPinAsset, quaPinAsset, nodeObjList.length); 
 
-      nodeObjList.push(node);
+      nodeObjList.push(node); 
       node.GenerateNode();
       document.getElementById("new-nodes").appendChild(node.node);
+      node.node.firstElementChild.addEventListener('onmousedown', (event) => DragMouseDown(event, this));
     }
+
     function getNode(idString) {
       if (idString == null) idString = "";
       let id = idString.charAt(idString.length - 1); 
       return nodeObjList[id];
+    }
+
+    /***** Div Dragging *****/
+     
+    function DragMouseDown(eventCall, element) {
+      eventCall.preventDefault();
+
+      let nodeObj = getNode(element.id);
+
+      // Get mouse position at startup
+      nodeObj.mouseStartPos = [eventCall.clientX, eventCall.clientY];
+
+      document.onmouseup = nodeObj.StopDragging;
+
+      // Call function whenever cursor moves
+      document.onmousemove = nodeObj.NodeDrag;
+    }
+
+    function NodeDrag(eventCall, element) {
+      eventCall.preventDefault();
+
+      let nodeObj = getNode(element.id);
+
+      // calculate new cursor position
+      nodeObj.mousePos = [nodeObj.mouseStartPos[0] - eventCall.clientX, nodeObj.mouseStartPos[1] - eventCall.clientY];
+      nodeObj.mouseStartPos = [eventCall.clientX, eventCall.clientY];
+
+      // set the node's new position
+      nodeObj.node.style.left = (nodeObj.node.offsetLeft - nodeObj.mousePos[0]) + "px";
+      nodeObj.node.style.top = (nodeObj.node.offsetTop - nodeObj.mousePos[1]) + "px";
+    }
+
+    function StopDragging() {
+      // stop moving when mouse button is released:
+      document.onmouseup = null;
+      document.onmousemove = null;
     }
   </script>
   <noscript>Sorry, your browser does not support JavaScript!</noscript>

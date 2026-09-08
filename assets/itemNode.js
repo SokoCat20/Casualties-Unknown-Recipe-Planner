@@ -45,8 +45,7 @@ class ItemNode {
          
         let titleDiv = document.createElement("div");
         this.node.appendChild(titleDiv);
-        titleDiv.id = "title-div";
-        titleDiv.onmousedown = DragMouseDown;
+        titleDiv.id = "title-div"; 
 
         let title = document.createElement("p");
         titleDiv.appendChild(title);
@@ -183,7 +182,7 @@ class ItemNode {
 
     // from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_draggable
 
-    DragMouseDown(e) {
+    /*DragMouseDown(e) {
         e.preventDefault();
 
         let nodeObj = getNode(this.id);
@@ -215,5 +214,5 @@ class ItemNode {
         // stop moving when mouse button is released:
         document.onmouseup = null;
         document.onmousemove = null;
-    }
+    }*/
 }
