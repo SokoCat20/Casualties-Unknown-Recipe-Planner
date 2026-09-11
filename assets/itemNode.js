@@ -39,6 +39,7 @@ class ItemNode {
         this.node.setAttribute("style", `height: ${this.height}px; width: ${this.width}px;`);
         this.node.class = "recipe-node";
         this.node.id = `recipe-node-${this.nodeID}`;
+        this.node.draggable = "true";
         //this.node.classList.add("divdrag");
 
         /***** Create title *****/

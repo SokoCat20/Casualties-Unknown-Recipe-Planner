@@ -91,8 +91,24 @@
     }
 
     /***** Div Dragging *****/
-     
-    function DragMouseDown(eventCall, element) {
+
+    const dropTarget = document.getElementById("recipe-list");
+
+    function MakeDropTarget(targetID) {
+      // Cancel dragover so that drop can fire
+      targetID.addEventListener("dragover", (ev) => {
+        ev.preventDefault();
+      });
+
+      targetID.addEventListener("drop", (ev) => {
+        ev.preventDefault();
+        ev.dataTransfer.dropEffect = "move";
+        //const data = ev.dataTransfer.getData("element");
+        //ev.targetID.append(data);
+      });
+    }
+
+    /*function DragMouseDown(eventCall, element) {
       eventCall.preventDefault();
 
       let nodeObj = getNode(element.id);
@@ -124,7 +140,7 @@
       // stop moving when mouse button is released:
       document.onmouseup = null;
       document.onmousemove = null;
-    }
+    }*/
   </script>
   <noscript>Sorry, your browser does not support JavaScript!</noscript>
 </head>
