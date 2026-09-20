@@ -12,6 +12,7 @@ class ItemNode {
 
     // Elements
     node;
+    nodeTitle;                  // Points to titleDiv
 
     // Other
     mousePos = [0, 0];
@@ -52,6 +53,8 @@ class ItemNode {
         titleDiv.appendChild(title);
         title.id = "node-title";
         title.textContent = this.data.name;
+
+        this.nodeTitle = titleDiv;
 
         /*let dragButton = document.createElement("button");
         titleDiv.appendChild(dragButton);

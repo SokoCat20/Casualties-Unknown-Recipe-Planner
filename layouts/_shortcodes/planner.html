@@ -44,7 +44,7 @@
       var recipeName = document.getElementById("recipe").value;
       var listDiv = document.getElementById("recipe-list");
       var text = "";
-      var list = [];  // List of JSON objects with names containing the input recipeName string
+      var list = [];    // List of JSON objects with names containing the input recipeName string
 
       listDiv.innerHTML = '';
 
@@ -78,21 +78,32 @@
       let quaPinAsset = {{ $QuaPinAsset.RelPermalink }};
       let node = new ItemNode(item, 100, 200, ingPinAsset, recPinAsset, quaPinAsset, nodeObjList.length); 
 
-      nodeObjList.push(node); 
+      nodeObjList.push(node);
       node.GenerateNode();
+      node.nodeTitle.addEventListener('mousedown', DragMouseDown)
+
       document.getElementById("new-nodes").appendChild(node.node);
       node.node.firstElementChild.addEventListener('onmousedown', (event) => DragMouseDown(event, this));
     }
 
-    function getNode(idString) {
-      if (idString == null) idString = "";
-      let id = idString.charAt(idString.length - 1); 
+    function getNode(element) {  // Only use on recipe nodes and their children. Returns null if the element is not a child of a recipe node. Returns the item object.
+      let currElement = element;
+
+      while (currElement.id.substring(0, 11) != "recipe-node") {
+        if (currElement.parentElement == null) return null;
+
+        currElement = currElement.parentElement;
+        //alert(currElement.id.substring(0, 11));
+      }
+      //alert("hi");
+      let id = currElement.id.substring(12);  // the first part of the id of a recipe node is "recipe-node". Any character after the 11th character represents its position in the nodeObjList array.
+                                              // The 11th character is a hyphen separating the two id's.
       return nodeObjList[id];
     }
 
     /***** Div Dragging *****/
 
-    const dropTarget = document.getElementById("recipe-list");
+    /*const dropTarget = document.getElementById("recipe-list");
 
     function MakeDropTarget(targetID) {
       // Cancel dragover so that drop can fire
@@ -106,41 +117,48 @@
         //const data = ev.dataTransfer.getData("element");
         //ev.targetID.append(data);
       });
-    }
+    }*/
 
-    /*function DragMouseDown(eventCall, element) {
+    function DragMouseDown(eventCall) {
       eventCall.preventDefault();
 
-      let nodeObj = getNode(element.id);
+      let nodeObj = getNode(eventCall.target);
 
       // Get mouse position at startup
       nodeObj.mouseStartPos = [eventCall.clientX, eventCall.clientY];
 
-      document.onmouseup = nodeObj.StopDragging;
+      // Add listeners for other functions
+      //document.addEventListener('mouseup', StopDragging);
+      //document.addEventListener('mousemove', NodeDrag);
 
-      // Call function whenever cursor moves
-      document.onmousemove = nodeObj.NodeDrag;
+      nodeObj.nodeTitle.addEventListener('mouseup', StopDragging);
+      nodeObj.nodeTitle.addEventListener('mousemove', NodeDrag);
     }
 
-    function NodeDrag(eventCall, element) {
+    function NodeDrag(eventCall) {
       eventCall.preventDefault();
 
-      let nodeObj = getNode(element.id);
+      let nodeObj = getNode(eventCall.target);
 
       // calculate new cursor position
       nodeObj.mousePos = [nodeObj.mouseStartPos[0] - eventCall.clientX, nodeObj.mouseStartPos[1] - eventCall.clientY];
       nodeObj.mouseStartPos = [eventCall.clientX, eventCall.clientY];
 
       // set the node's new position
-      nodeObj.node.style.left = (nodeObj.node.offsetLeft - nodeObj.mousePos[0]) + "px";
-      nodeObj.node.style.top = (nodeObj.node.offsetTop - nodeObj.mousePos[1]) + "px";
+      let left = (nodeObj.node.offsetLeft - nodeObj.mousePos[0]) + "px";
+      let top = (nodeObj.node.offsetTop - nodeObj.mousePos[1]) + "px";
+
+      nodeObj.node.style.setProperty("position", "absolute");
+      nodeObj.node.style.setProperty("left", `${left}`);
+      nodeObj.node.style.setProperty("top", `${top}`);
     }
 
-    function StopDragging() {
-      // stop moving when mouse button is released:
-      document.onmouseup = null;
-      document.onmousemove = null;
-    }*/
+    function StopDragging(eventCall) {
+      let nodeObj = getNode(eventCall.target); 
+
+      nodeObj.nodeTitle.removeEventListener('mouseup', StopDragging);
+      nodeObj.nodeTitle.removeEventListener('mousemove', NodeDrag);
+    }
   </script>
   <noscript>Sorry, your browser does not support JavaScript!</noscript>
 </head>
