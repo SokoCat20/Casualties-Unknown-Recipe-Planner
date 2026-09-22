@@ -57,7 +57,7 @@
         let listItem = document.createTextNode(list[i].name);
 
         itemDiv.setAttribute("onclick", "SelectItem(this)");
-
+        
         itemDiv.appendChild(listItem);
         listDiv.appendChild(itemDiv);
       }
@@ -93,46 +93,36 @@
         if (currElement.parentElement == null) return null;
 
         currElement = currElement.parentElement;
-        //alert(currElement.id.substring(0, 11));
       }
-      //alert("hi");
+
       let id = currElement.id.substring(12);  // the first part of the id of a recipe node is "recipe-node". Any character after the 11th character represents its position in the nodeObjList array.
                                               // The 11th character is a hyphen separating the two id's.
       return nodeObjList[id];
     }
 
+    function BringNodeToFront(element) {  // sets the node's z-index to 1, and the z-index of all other nodes to 0.
+      for (let i = 0; i < nodeObjList.length; i++) {
+        nodeObjList[i].node.style.setProperty("z-index", "0");
+      }
+      element.style.setProperty("z-index", "1");
+    }
+
     /***** Div Dragging *****/
-
-    /*const dropTarget = document.getElementById("recipe-list");
-
-    function MakeDropTarget(targetID) {
-      // Cancel dragover so that drop can fire
-      targetID.addEventListener("dragover", (ev) => {
-        ev.preventDefault();
-      });
-
-      targetID.addEventListener("drop", (ev) => {
-        ev.preventDefault();
-        ev.dataTransfer.dropEffect = "move";
-        //const data = ev.dataTransfer.getData("element");
-        //ev.targetID.append(data);
-      });
-    }*/
 
     function DragMouseDown(eventCall) {
       eventCall.preventDefault();
 
       let nodeObj = getNode(eventCall.target);
 
+      // Bring node to front
+      BringNodeToFront(nodeObj.node);
+
       // Get mouse position at startup
       nodeObj.mouseStartPos = [eventCall.clientX, eventCall.clientY];
 
       // Add listeners for other functions
-      //document.addEventListener('mouseup', StopDragging);
-      //document.addEventListener('mousemove', NodeDrag);
-
-      nodeObj.nodeTitle.addEventListener('mouseup', StopDragging);
-      nodeObj.nodeTitle.addEventListener('mousemove', NodeDrag);
+      document.addEventListener('mouseup', StopDragging);
+      document.addEventListener('mousemove', NodeDrag);
     }
 
     function NodeDrag(eventCall) {
@@ -152,12 +142,12 @@
       nodeObj.node.style.setProperty("left", `${left}`);
       nodeObj.node.style.setProperty("top", `${top}`);
     }
-
+      
     function StopDragging(eventCall) {
       let nodeObj = getNode(eventCall.target); 
 
-      nodeObj.nodeTitle.removeEventListener('mouseup', StopDragging);
-      nodeObj.nodeTitle.removeEventListener('mousemove', NodeDrag);
+      document.removeEventListener('mouseup', StopDragging);
+      document.removeEventListener('mousemove', NodeDrag);
     }
   </script>
   <noscript>Sorry, your browser does not support JavaScript!</noscript>

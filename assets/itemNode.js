@@ -33,15 +33,16 @@ class ItemNode {
     }
 
     GenerateNode() {
-
+        
         /***** Create node *****/
 
         this.node = document.createElement("div");  // This div will hold the entire node
-        this.node.setAttribute("style", `height: ${this.height}px; width: ${this.width}px;`);
-        this.node.class = "recipe-node";
+        this.node.class = "recipe-node"; 
         this.node.id = `recipe-node-${this.nodeID}`;
+        this.node.style.setProperty("height", `${this.height}px`);
+        this.node.style.setProperty("width", `${this.width}px`);
+        this.node.style.setProperty("background-color", "white");
         this.node.draggable = "true";
-        //this.node.classList.add("divdrag");
 
         /***** Create title *****/
          
@@ -55,60 +56,6 @@ class ItemNode {
         title.textContent = this.data.name;
 
         this.nodeTitle = titleDiv;
-
-        /*let dragButton = document.createElement("button");
-        titleDiv.appendChild(dragButton);
-        dragButton.id = "drag-button";
-        dragButton.textContent = "drag";*/
-
-        // Add ability to drag with mouse
-
-        // from https://jsfiddle.net/f5EMT/1/
-
-        /*this.node.titleDiv.addEventListener("mousedown", function (e) {
-            this.mouseDown = true;
-            //this.offset = [this.node.left - e.clientX, this.node.style.top - e.clientY];
-            this.offset = [e.clientX, e.clientY];
-        }, true);
-
-        this.node.addEventListener("mouseup", function () {
-            this.mouseDown = false;
-        }, true);
-
-        this.node.addEventListener("mousemove", function (e) {
-            e.preventDefault();
-
-            if (this.mouseDown) {
-                this.mousePos = [e.clientX, e.clientY];
-                this.node.style.left = (this.mousePosition[0] + this.offset[0]) + 'px';
-                this.node.style.top = (this.mousePosition[1] + this.offset[1]) + 'px';
-            }
-        }, true);*/
-
-        // attempt to combine https://jsfiddle.net/f5EMT/1/ and https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_draggable
-
-        /*titleDiv.addEventListener("mousedown", function (e) {
-            e.preventDefault();
-            this.mouseDown = true;
-            //this.offset = [this.node.left - e.clientX, this.node.style.top - e.clientY];
-            this.mouseStartPos = [e.clientX, e.clientY];
-        }, true);
-
-        titleDiv.addEventListener("mouseup", function () {
-            this.mouseDown = false;
-        }, true);
-
-        titleDiv.addEventListener("mousemove", function (e) {
-            e.preventDefault();
-
-            if (this.mouseDown) {
-                this.mousePos = [this.mouseStartPos[0] - e.clientX, this.mouseStartPos[1] - e.clientY];
-                this.mouseStartPos = [e.clientX, e.clientY];
-
-                this.node.setAttribute("style", `left: ${(this.node.offsetLeft - this.mouseStartPos[0])} + 'px'`)
-                this.node.setAttribute("style", `top: ${(this.node.offsetTop - this.mouseStartPos[1])} + 'px'`)
-            }
-        }, true);*/
 
         /***** Create pins *****/
         // TO DO: Implement functionality for multiple recipes by making buttons to cycle through
@@ -183,40 +130,4 @@ class ItemNode {
         recPinImage.src = this.recipePinImage;
         recPinImage.id = "rec-pin-image";
     }
-
-    // from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_draggable
-
-    /*DragMouseDown(e) {
-        e.preventDefault();
-
-        let nodeObj = getNode(this.id);
-
-        // Get mouse position at startup
-        nodeObj.mouseStartPos = [e.clientX, e.clientY];
-
-        document.onmouseup = nodeObj.StopDragging;
-
-        // Call function whenever cursor moves
-        document.onmousemove = nodeObj.NodeDrag;
-    }
-
-    NodeDrag(e) {
-        e.preventDefault();
-
-        let nodeObj = getNode(this.id);
-
-        // calculate new cursor position
-        nodeObj.mousePos = [nodeObj.mouseStartPos[0] - e.clientX, nodeObj.mouseStartPos[1] - e.clientY];
-        nodeObj.mouseStartPos = [e.clientX, e.clientY];
-
-        // set the node's new position
-        nodeObj.node.style.left = (nodeObj.node.offsetLeft - nodeObj.mousePos[0]) + "px";
-        nodeObj.node.style.top = (nodeObj.node.offsetTop - nodeObj.mousePos[1]) + "px";
-    }
-
-    StopDragging() {
-        // stop moving when mouse button is released:
-        document.onmouseup = null;
-        document.onmousemove = null;
-    }*/
 }
