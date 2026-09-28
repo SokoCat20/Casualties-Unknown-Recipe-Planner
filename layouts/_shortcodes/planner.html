@@ -22,6 +22,15 @@
     //document.onmousemove = function (e) { console.log("mouse location:", e.clientX, e.clientY) };
 
     var nodeObjList = [];
+    var targetNode;         // The item object being targeted by the mouse dragging system
+    var canvasesDiv = document.getElementById("canvases");
+    var newNodesDiv = document.getElementById("new-nodes");
+
+    //canvasesDiv.node.style.setProperty("position", "absolute");
+    //canvasesDiv.node.style.setProperty("left", `${newNodesDiv.node.getAttribute("left")}`);
+    //canvasesDiv.node.style.setProperty("top", `${newNodesDiv.node.getAttribute("top") }`);
+
+    if (targetNode != null) DrawPinToMouse();
 
     /***** Data *****/
 
@@ -112,13 +121,13 @@
     function DragMouseDown(eventCall) {
       eventCall.preventDefault();
 
-      let nodeObj = getNode(eventCall.target);
+      targetNode = getNode(eventCall.target);
 
       // Bring node to front
-      BringNodeToFront(nodeObj.node);
+      BringNodeToFront(targetNode.node);
 
       // Get mouse position at startup
-      nodeObj.mouseStartPos = [eventCall.clientX, eventCall.clientY];
+      targetNode.mouseStartPos = [eventCall.clientX, eventCall.clientY];
 
       // Add listeners for other functions
       document.addEventListener('mouseup', StopDragging);
@@ -128,26 +137,34 @@
     function NodeDrag(eventCall) {
       eventCall.preventDefault();
 
-      let nodeObj = getNode(eventCall.target);
+      targetNode = getNode(eventCall.target);
 
       // calculate new cursor position
-      nodeObj.mousePos = [nodeObj.mouseStartPos[0] - eventCall.clientX, nodeObj.mouseStartPos[1] - eventCall.clientY];
-      nodeObj.mouseStartPos = [eventCall.clientX, eventCall.clientY];
+      targetNode.mousePos = [targetNode.mouseStartPos[0] - eventCall.clientX, targetNode.mouseStartPos[1] - eventCall.clientY];
+      targetNode.mouseStartPos = [eventCall.clientX, eventCall.clientY];
 
       // set the node's new position
-      let left = (nodeObj.node.offsetLeft - nodeObj.mousePos[0]) + "px";
-      let top = (nodeObj.node.offsetTop - nodeObj.mousePos[1]) + "px";
+      let left = (targetNode.node.offsetLeft - targetNode.mousePos[0]) + "px";
+      let top = (targetNode.node.offsetTop - targetNode.mousePos[1]) + "px";
 
-      nodeObj.node.style.setProperty("position", "absolute");
-      nodeObj.node.style.setProperty("left", `${left}`);
-      nodeObj.node.style.setProperty("top", `${top}`);
+      targetNode.node.style.setProperty("position", "absolute");
+      targetNode.node.style.setProperty("left", `${left}`);
+      targetNode.node.style.setProperty("top", `${top}`);
     }
       
     function StopDragging(eventCall) {
-      let nodeObj = getNode(eventCall.target); 
+      targetNode = getNode(eventCall.target); 
 
       document.removeEventListener('mouseup', StopDragging);
       document.removeEventListener('mousemove', NodeDrag);
+
+      targetNode = null;
+    }
+
+    /***** Pin Connection *****/
+
+    function DrawPinToMouse() {
+
     }
   </script>
   <noscript>Sorry, your browser does not support JavaScript!</noscript>
@@ -161,10 +178,12 @@
   <br>
   <div id="recipe-list">
 
-  </div>
+  </div> 
   <br />
-  <div id="new-nodes">
+  <div id="canvases">
 
+  </div>
+  <div id="new-nodes">
   </div>
 </body>
 </html>
