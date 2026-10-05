@@ -14,6 +14,12 @@ class ItemNode {
     node;
     nodeTitle;                  // Points to titleDiv
 
+    // Connections
+    ingEdges = [];              // IDs of edges connected to ingredient pins, in order of pins from top to bottom.
+    recEdge = -1;               // ID of edge connected to recipe pin.
+    ingredientNodes = [];       // IDs of nodes connected to ingEdges. The ID of a node and the ID of its edge are not necessarily the same.
+    recipeNodes = -1;           // ID of node connected to recipe pin. The ID of a node and the ID of its edge are not necessarily the same.
+
     // Other
     mousePos = [0, 0];
     offset = [0, 0];

@@ -22,15 +22,12 @@
     //document.onmousemove = function (e) { console.log("mouse location:", e.clientX, e.clientY) };
 
     var nodeObjList = [];
+    var edgeList = [];      // List of lines connecting pins
     var targetNode;         // The item object being targeted by the mouse dragging system
-    var canvasesDiv = document.getElementById("canvases");
-    var newNodesDiv = document.getElementById("new-nodes");
+    var canvasesDiv;
+    var newNodesDiv;
 
-    //canvasesDiv.node.style.setProperty("position", "absolute");
-    //canvasesDiv.node.style.setProperty("left", `${newNodesDiv.node.getAttribute("left")}`);
-    //canvasesDiv.node.style.setProperty("top", `${newNodesDiv.node.getAttribute("top") }`);
-
-    if (targetNode != null) DrawPinToMouse();
+    //if (targetNode != null) DrawPinToMouse();
 
     /***** Data *****/
 
@@ -92,7 +89,6 @@
       node.nodeTitle.addEventListener('mousedown', DragMouseDown)
 
       document.getElementById("new-nodes").appendChild(node.node);
-      node.node.firstElementChild.addEventListener('onmousedown', (event) => DragMouseDown(event, this));
     }
 
     function getNode(element) {  // Only use on recipe nodes and their children. Returns null if the element is not a child of a recipe node. Returns the item object.
@@ -163,8 +159,8 @@
 
     /***** Pin Connection *****/
 
-    function DrawPinToMouse() {
-
+    function DrawPinToMouse(eventCall) {
+      eventCall.preventDefault();
     }
   </script>
   <noscript>Sorry, your browser does not support JavaScript!</noscript>
@@ -186,4 +182,8 @@
   <div id="new-nodes">
   </div>
 </body>
+<script>
+  canvasesDiv = document.getElementById("canvases");
+  newNodesDiv = document.getElementById("new-nodes");
+</script>
 </html>

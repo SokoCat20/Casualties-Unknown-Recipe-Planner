@@ -8,6 +8,7 @@
     height: 90vh;
     border-style: solid;
     border-color: black;
+    position: absolute;
 }
 
 .recipe-node {
@@ -46,6 +47,8 @@
 }
 
 #ingrediant-pins {
+    margin-left: 0;
+    margin-right: auto;
     float: left;
     overflow: visible;
     width: stretch;
