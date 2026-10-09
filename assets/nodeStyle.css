@@ -2,13 +2,16 @@
     height: 90vh;
     border-style: solid;
     border-color: black;
+    z-index: 1;
 }
 
 #canvases {
     height: 90vh;
+    width: 10vh;
     border-style: solid;
     border-color: black;
     position: absolute;
+    z-index: 0;
 }
 
 .recipe-node {

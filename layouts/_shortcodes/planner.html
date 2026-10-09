@@ -22,7 +22,7 @@
     //document.onmousemove = function (e) { console.log("mouse location:", e.clientX, e.clientY) };
 
     var nodeObjList = [];
-    var edgeList = [];      // List of lines connecting pins
+    var edgeList = [];      // List of lines connecting pins. Stores canvases.
     var targetNode;         // The item object being targeted by the mouse dragging system
     var canvasesDiv;
     var newNodesDiv;
@@ -114,6 +114,7 @@
 
     /***** Div Dragging *****/
 
+
     function DragMouseDown(eventCall) {
       eventCall.preventDefault();
 
@@ -127,8 +128,12 @@
 
       // Add listeners for other functions
       document.addEventListener('mouseup', StopDragging);
-      document.addEventListener('mousemove', NodeDrag);
+
+      if (eventCall.target.id == "node-title") document.addEventListener('mousemove', NodeDrag);                                                // If a node title is clicked, move the whole node
+      if (eventCall.target.id == "ing-pin-image" || eventCall.target.id == "qua-pin-image" || eventCall.target.id == "rec-pin-image") document.addEventListener('mousemove', PinDrag);    // If a pin is clicked, draw a line to the mouse from the pin image
     }
+
+    // Node Dragging
 
     function NodeDrag(eventCall) {
       eventCall.preventDefault();
@@ -152,15 +157,52 @@
       targetNode = getNode(eventCall.target); 
 
       document.removeEventListener('mouseup', StopDragging);
-      document.removeEventListener('mousemove', NodeDrag);
+      if (eventCall.target.id == "node-title") document.removeEventListener('mousemove', NodeDrag);
+      if (eventCall.target.id == "ing-pin-image" || eventCall.target.id == "qua-pin-image" || eventCall.target.id == "rec-pin-image") document.removeEventListener('mousemove', PinDrag);
 
       targetNode = null;
     }
 
-    /***** Pin Connection *****/
+    // Pin Connection
+    // TO DO: SORT edgeList TO HOLD EDGES IN ORDER FROM TOP PIN TO BOTTOM PIN
+    // TO DO: Figure out how to make divs overlap and have canvas lines be visible behind the new nodes div.
+
+    function PinDrag(eventCall) {
+      eventCall.preventDefault();
+
+      targetNode = getNode(eventCall.target);
+
+      // calculate new cursor position
+      targetNode.mousePos = [targetNode.mouseStartPos[0] - eventCall.clientX, targetNode.mouseStartPos[1] - eventCall.clientY];
+      targetNode.mouseStartPos = [eventCall.clientX, eventCall.clientY];
+
+      // Create and catalogue a new canvas for this line
+
+      let newCanvas = document.createElement("canvas");
+      edgeList.push(newCanvas);
+      if (eventCall.target.id == "ing-pin-image" || eventCall.target.id == "qua-pin-image") targetNode.ingEdges.push(edgeList.length - 1);
+      if (eventCall.target.id == "rec-pin-image") targetNode.recEdge = edgeList.length - 1;
+      canvasesDiv.appendChild(newCanvas);
+
+      DrawPinToMouse();
+    }
 
     function DrawPinToMouse(eventCall) {
       eventCall.preventDefault();
+
+      targetNode = getNode(eventCall.target);
+
+      let currCanvas = edgeList[edgeList.length];   // The current canvas should be the one that was just made, which should be at the top of the list.
+      let ctx = currCanvas.getContext("2d");
+
+      // calculate the line's end position
+      let left = (targetNode.node.offsetLeft - targetNode.mousePos[0]) + "px";
+      let top = (targetNode.node.offsetTop - targetNode.mousePos[1]) + "px";
+
+      ctx.beginPath();
+      ctx.moveTo(eventCall.target.getAttribute("style", "left"), eventCall.target.getAttribute("style", "top"));
+      ctx.lineTo(left, top);
+      ctx.stroke();
     }
   </script>
   <noscript>Sorry, your browser does not support JavaScript!</noscript>
