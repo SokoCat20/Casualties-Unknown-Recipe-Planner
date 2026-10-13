@@ -54,7 +54,7 @@ class ItemNode {
          
         let titleDiv = document.createElement("div");
         this.node.appendChild(titleDiv);
-        titleDiv.id = "title-div"; 
+        titleDiv.id = "title-div";   
 
         let title = document.createElement("p");
         titleDiv.appendChild(title);
