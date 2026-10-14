@@ -203,22 +203,34 @@
       let left = (targetNode.node.offsetLeft - targetNode.mousePos[0]) + "px";
       let top = (targetNode.node.offsetTop - targetNode.mousePos[1]) + "px";
 
-      //alert(pin.getAttribute("style", "top"));
+
+      let v = LocalToGlobalPos(pin);
+      alert(`${v[0]}, ${v[1]}`);
       ctx.beginPath();
       ctx.moveTo(pin.style.getAttribute("left"), pin.style.getAttribute("top"));
       //ctx.lineTo(left, top);
       ctx.lineTo(100, 100);
       ctx.stroke();
-    }
+    } 
 
     // Calculation
 
-    // TO DO: Use recursion. Get the difference between the element pos and its parent's pos then add up all the differences. Subtract from the element pos and it should give the global pos.
+    // Returns an array of 2 integers representing a vector. The first integer is x, the second is y.
+    function LocalToGlobalPos(element) {   
+      if (element.parentElement == null) return origin = [0, 0];
 
-    function LocalToGlobalPos(element, pos) {   // pos is an array of 2 integers. The first represents x, the second y.
-      if (element.parentElement == null) return pos;  // If there is no parent then the element's position is already in global space
+      // pos, parentPos, vector, nextVector, and totalVector are arrays of 2 integers. The first represents x, the second represents y.
 
-      
+      let pos = [element.offsetLeft, element.offsetTop];
+      let parentPos = [element.parentElement.offsetLeft, element.parentElement.offsetTop];
+      let vector = [pos[0] - parentPos[0], pos[1] - parentPos[1]];
+
+      let nextVector = LocalToGlobalPos(element.parentElement);
+      let totalVector = [vector[0] + nextVector[0], vector[1] + nextVector[1]]
+
+      console.log(`${element.nodeName} | ${totalVector[0]}, ${totalVector[1]}`);
+
+      return totalVector;
     }
   </script>
   <noscript>Sorry, your browser does not support JavaScript!</noscript>
